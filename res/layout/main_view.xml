@@ -2,6 +2,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
     android:background="@color/background_blue" >
+    
+    <LinearLayout
+        android:id="@+id/imageCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/card" >
+        
+        <ImageView
+            android:id="@+id/comicImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/please_wait" />
+        
+    </LinearLayout>
     
 </RelativeLayout>
