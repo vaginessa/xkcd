@@ -15,7 +15,14 @@ public class MainView extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_view);
 		
+		findViews();
+		
+		// Temporary method
 		aq.id(comicImage).image("http://imgs.xkcd.com/comics/old_files.png");
+	}
+
+	private void findViews() {
+		comicImage = (ImageView) findViewById(R.id.comicImageView);
 	}
 
 }
