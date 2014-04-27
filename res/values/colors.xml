@@ -2,4 +2,8 @@
 <resources>
     <color name="background_blue">#33465d</color>
     <color name="button_blue">#6e7b91</color>
+    
+    <!-- Card Colors -->
+    <color name="card_border">#bbb</color>
+    <color name="card_shadow">#999</color>
 </resources>

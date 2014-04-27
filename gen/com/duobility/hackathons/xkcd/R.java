@@ -794,12 +794,16 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070005;
+        public static final int abc_search_url_text_holo=0x7f070007;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
         public static final int background_blue=0x7f070003;
         public static final int button_blue=0x7f070004;
+        /**  Card Colors 
+         */
+        public static final int card_border=0x7f070005;
+        public static final int card_shadow=0x7f070006;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -894,6 +898,9 @@ containing a value of this type.
          */
         public static final int activity_horizontal_margin=0x7f080011;
         public static final int activity_vertical_margin=0x7f080012;
+        /**  Card Dimens 
+         */
+        public static final int card_radius=0x7f080013;
     }
     public static final class drawable {
         public static final int ab_background_textured_xkcddark=0x7f020000;
@@ -995,27 +1002,28 @@ containing a value of this type.
         public static final int btn_cab_done_xkcddark=0x7f020060;
         public static final int cab_background_bottom_xkcddark=0x7f020061;
         public static final int cab_background_top_xkcddark=0x7f020062;
-        public static final int ic_launcher=0x7f020063;
-        public static final int list_focused_xkcddark=0x7f020064;
-        public static final int list_pressed_xkcddark=0x7f020065;
-        public static final int menu_dropdown_panel_xkcddark=0x7f020066;
-        public static final int progress_bg_xkcddark=0x7f020067;
-        public static final int progress_horizontal_xkcddark=0x7f020068;
-        public static final int progress_primary_xkcddark=0x7f020069;
-        public static final int progress_secondary_xkcddark=0x7f02006a;
-        public static final int selectable_background_xkcddark=0x7f02006b;
-        public static final int spinner_ab_default_xkcddark=0x7f02006c;
-        public static final int spinner_ab_disabled_xkcddark=0x7f02006d;
-        public static final int spinner_ab_focused_xkcddark=0x7f02006e;
-        public static final int spinner_ab_pressed_xkcddark=0x7f02006f;
-        public static final int spinner_background_ab_xkcddark=0x7f020070;
-        public static final int tab_indicator_ab_xkcddark=0x7f020071;
-        public static final int tab_selected_focused_xkcddark=0x7f020072;
-        public static final int tab_selected_pressed_xkcddark=0x7f020073;
-        public static final int tab_selected_xkcddark=0x7f020074;
-        public static final int tab_unselected_focused_xkcddark=0x7f020075;
-        public static final int tab_unselected_pressed_xkcddark=0x7f020076;
-        public static final int tab_unselected_xkcddark=0x7f020077;
+        public static final int card=0x7f020063;
+        public static final int ic_launcher=0x7f020064;
+        public static final int list_focused_xkcddark=0x7f020065;
+        public static final int list_pressed_xkcddark=0x7f020066;
+        public static final int menu_dropdown_panel_xkcddark=0x7f020067;
+        public static final int progress_bg_xkcddark=0x7f020068;
+        public static final int progress_horizontal_xkcddark=0x7f020069;
+        public static final int progress_primary_xkcddark=0x7f02006a;
+        public static final int progress_secondary_xkcddark=0x7f02006b;
+        public static final int selectable_background_xkcddark=0x7f02006c;
+        public static final int spinner_ab_default_xkcddark=0x7f02006d;
+        public static final int spinner_ab_disabled_xkcddark=0x7f02006e;
+        public static final int spinner_ab_focused_xkcddark=0x7f02006f;
+        public static final int spinner_ab_pressed_xkcddark=0x7f020070;
+        public static final int spinner_background_ab_xkcddark=0x7f020071;
+        public static final int tab_indicator_ab_xkcddark=0x7f020072;
+        public static final int tab_selected_focused_xkcddark=0x7f020073;
+        public static final int tab_selected_pressed_xkcddark=0x7f020074;
+        public static final int tab_selected_xkcddark=0x7f020075;
+        public static final int tab_unselected_focused_xkcddark=0x7f020076;
+        public static final int tab_unselected_pressed_xkcddark=0x7f020077;
+        public static final int tab_unselected_xkcddark=0x7f020078;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
