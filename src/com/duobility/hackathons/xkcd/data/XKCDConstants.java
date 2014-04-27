@@ -2,6 +2,9 @@ package com.duobility.hackathons.xkcd.data;
 
 public class XKCDConstants {
 	
-	public static final String XKCD_MAIN_URL = "http://xkcd.com/";
+	public class Urls {
+		public static final String HOME = "http://xkcd.com/";
+		public static final String RANDOM = "http://dynamic.xkcd.com/random/comic/";
+	}
 	
 }
