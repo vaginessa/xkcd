@@ -43,14 +43,15 @@ public class XkcdSyncActivity extends BaseActivity {
 				for (Element comic : comicList) {
 					//Comic Link at comic.attr("abs:href")
 					//Comic Title at comic.text()
-					getImageURLandCaption(comic.attr("abs:href")); // specific comic link required as input
+					
+					//getImageURLandCaption(comic.attr("abs:href")); // specific comic link required as input
 				}
 			}
 			
 			return true;
 		}
 
-		private String[] getImageURLandCaption(String comicURL) {
+		protected String[] getImageURLandCaption(String comicURL) {
 			Document comicPage = null;
 			
 			// Get comic HTML doc

@@ -2,11 +2,13 @@ package com.duobility.hackathons.xkcd.views;
 
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.BaseActivity;
+import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
+import com.duobility.hackathons.xkcd.data.XKCDConstants;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 
-public class MainView extends BaseActivity {
+public class MainView extends XkcdSyncActivity {
 	
 	private ImageView comicImage;
 	
@@ -18,7 +20,7 @@ public class MainView extends BaseActivity {
 		findViews();
 		
 		// Temporary method
-		aq.id(comicImage).image("http://imgs.xkcd.com/comics/old_files.png");
+		aq.id(comicImage).image(XKCDConstants.testImageURLs[1]);
 	}
 
 	private void findViews() {

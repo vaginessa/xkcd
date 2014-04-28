@@ -9,12 +9,13 @@
         android:id="@+id/imageCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/paddingSmall"
         android:background="@drawable/card" >
         
         <ImageView
             android:id="@+id/comicImageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:contentDescription="@string/please_wait" />
         
     </LinearLayout>

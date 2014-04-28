@@ -900,7 +900,15 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f080012;
         /**  Card Dimens 
          */
-        public static final int card_radius=0x7f080013;
+        public static final int card_radius=0x7f080019;
+        public static final int padding=0x7f080016;
+        public static final int paddingLarge=0x7f080017;
+        public static final int paddingMed=0x7f080015;
+        public static final int paddingSmall=0x7f080014;
+        public static final int paddingVeryLarge=0x7f080018;
+        /**  Margins and Paddings 
+         */
+        public static final int paddingVerySmall=0x7f080013;
     }
     public static final class drawable {
         public static final int ab_background_textured_xkcddark=0x7f020000;

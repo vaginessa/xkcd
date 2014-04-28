@@ -4,6 +4,14 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     
+    <!-- Margins and Paddings -->
+    <dimen name="paddingVerySmall">2dp</dimen>
+    <dimen name="paddingSmall">4dp</dimen>
+    <dimen name="paddingMed">8dp</dimen>
+    <dimen name="padding">16dp</dimen>
+    <dimen name="paddingLarge">32dp</dimen>
+    <dimen name="paddingVeryLarge">64dp</dimen>
+    
     <!-- Card Dimens -->
     <dimen name="card_radius">2dp</dimen>
 
