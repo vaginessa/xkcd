@@ -10,6 +10,7 @@ public abstract class XKCDConstants {
 	
 	public class Json {
 		public static final String ARRAY_TAG = "xkcd";
+		
 		public static final String ID = "id";
 		public static final String TITLE = "title";
 		public static final String URL = "url";
