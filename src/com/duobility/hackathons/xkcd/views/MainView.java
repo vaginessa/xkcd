@@ -20,7 +20,7 @@ public class MainView extends XkcdSyncActivity {
 		findViews();
 		
 		// Temporary method
-		aq.id(comicImage).image(XKCDConstants.testImageURLs[1]);
+		aq.id(comicImage).image(XKCDConstants.testImageURLs[0]);
 	}
 
 	private void findViews() {
