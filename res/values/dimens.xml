@@ -12,6 +12,12 @@
     <dimen name="paddingLarge">32dp</dimen>
     <dimen name="paddingVeryLarge">64dp</dimen>
     
+    <!-- Text Dimens -->
+    <dimen name="textSmall">14sp</dimen>
+    <dimen name="textNormal">16sp</dimen>
+    <dimen name="textMedium">18sp</dimen>
+    <dimen name="textLarge">20sp</dimen>
+    
     <!-- Card Dimens -->
     <dimen name="card_radius">2dp</dimen>
 
