@@ -3,7 +3,12 @@
     <color name="background_blue">#33465d</color>
     <color name="button_blue">#6e7b91</color>
     
+    <!-- GrayScale -->
+    <color name="black1">#111</color>
+    <color name="black3">#333</color>
+    <color name="black5">#555</color>
+    
     <!-- Card Colors -->
     <color name="card_border">#bbb</color>
-    <color name="card_shadow">#999</color>
+    <color name="card_shadow">#99000000</color>
 </resources>
