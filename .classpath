@@ -7,5 +7,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/AnthonyRose/Documents/AppDevelopment/LIBRARIES/JARS/aquery0.26.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/AnthonyRose/Documents/AppDevelopment/LIBRARIES/JARS/jsoup1.7.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/AnthonyRose/Documents/AppDevelopment/LIBRARIES/JARS/gson-2.2.4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

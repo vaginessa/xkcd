@@ -1,13 +1,16 @@
 package com.duobility.hackathons.xkcd.activities;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 
 import com.duobility.hackathons.xkcd.data.XKCDConstants;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -20,63 +23,66 @@ public class XkcdSyncActivity extends BaseActivity {
 	protected void onStart() {
 		super.onStart();
 		
-		/* Get the XKCD archive page */
-		new GetXkcdASync().execute(XKCDConstants.Urls.ARCHIVE);
+		/* Ask Back end for JSon list */
+		aq.ajax(XKCDConstants.Urls.RECEIVE_JSON, String.class, new AjaxCallback<String>(){
+			@Override
+			public void callback(String url, String response, AjaxStatus status) {
+				super.callback(url, response, status);
+				
+				if (receivedJSon(response)) {
+					new ProcessReceivedJSon().execute(response);
+				}
+			}
+		});
 	}
 	
-	private class GetXkcdASync extends AsyncTask<String, Integer, Boolean> {
+	private boolean receivedJSon(String response) {
+		if (response != "") {
+			return true; // There is content
+		} else {
+			return false; // There was no content
+		}
+	}
+	
+	/* Background task for getting the 
+	 * XKCD comics and putting them in
+	 * an arrayList */
+	private class ProcessReceivedJSon extends AsyncTask<String, Integer, ArrayList<Comic>> {
 
 		@Override
-		protected Boolean doInBackground(String... urls) {
-			Document doc = null;
+		protected ArrayList<Comic> doInBackground(String... payload) {
+			ArrayList<Comic> comicList = new ArrayList<Comic>();
+			JSONObject xkcdObject = null;
 			
-			// Get HTML doc
 			try {
-				doc = Jsoup.connect(urls[0]).get();
-			} catch (IOException e) {
-				e.printStackTrace();
+				xkcdObject = new JSONObject(payload[0]);
+				JSONArray comicArray = xkcdObject.getJSONArray(XKCDConstants.Json.ARRAY_TAG);
+				
+				/* Get all comics from JSon array */
+				for (int i = 0; i < comicArray.length(); i++) {
+					JSONObject comicObject = comicArray.getJSONObject(i);
+					comicList.add(new Comic(
+							comicObject.getInt(XKCDConstants.Json.ID), //Id
+							comicObject.getString(XKCDConstants.Json.TITLE), // Title
+							comicObject.getString(XKCDConstants.Json.URL), // URL
+							comicObject.getString(XKCDConstants.Json.CAPTION)) // Caption
+					);
+					Log.d(CLASSTAG, comicObject.getString(XKCDConstants.Json.TITLE));
+				} // End of for loop
+				
+				/* Return the Comic ArrayList */
+				return comicList;
+				
+			} catch (JSONException e) {
+				/* Return a null so we know that it failed */
+				Log.e(CLASSTAG, e.toString());
+				return null;
 			}
-			
-			// Check if we got it
-			if (doc != null) {
-				Elements comicList = doc.select("#middleContainer a[href]");
-				for (Element comic : comicList) {
-					//Comic Link at comic.attr("abs:href")
-					//Comic Title at comic.text()
-					
-					//getImageURLandCaption(comic.attr("abs:href")); // specific comic link required as input
-				}
-			}
-			
-			return true;
 		}
-
-		protected String[] getImageURLandCaption(String comicURL) {
-			Document comicPage = null;
-			
-			// Get comic HTML doc
-			try {
-				comicPage = Jsoup.connect(comicURL).get();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			// Get image URL
-			if (comicPage != null) {
-				Elements images = comicPage.select("#comic img[src]");
-				String[] imageArray = {"",""};
-				
-				for (Element image : images) {
-					imageArray[0] = image.attr("src");
-					imageArray[1] = image.attr("title");
-				}
-				Log.i(CLASSTAG, imageArray[0]);
-				return imageArray;
-				
-			} else {
-				String[] imageArray = {"", ""};
-				return imageArray;
-			}
+		
+		@Override
+		protected void onPostExecute(ArrayList<Comic> comicArrayList) {
+			super.onPostExecute(comicArrayList);
 		}
 		
 	}
