@@ -1,7 +1,6 @@
 package com.duobility.hackathons.xkcd.views;
 
 import com.duobility.hackathons.xkcd.R;
-import com.duobility.hackathons.xkcd.activities.BaseActivity;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
 import com.duobility.hackathons.xkcd.data.XKCDConstants;
 
