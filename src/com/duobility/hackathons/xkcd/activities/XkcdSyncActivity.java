@@ -15,14 +15,11 @@ import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class XkcdSyncActivity extends BaseActivity {
+public abstract class XkcdSyncActivity extends BaseActivity {
 	
 	private String CLASSTAG = XkcdSyncActivity.class.getSimpleName();
 	
-	@Override
-	protected void onStart() {
-		super.onStart();
-		
+	protected void requestJsonFromServer() {
 		/* Ask Back end for JSon list */
 		aq.ajax(XKCDConstants.Urls.RECEIVE_JSON, String.class, new AjaxCallback<String>(){
 			@Override
@@ -60,14 +57,28 @@ public class XkcdSyncActivity extends BaseActivity {
 				
 				/* Get all comics from JSon array */
 				for (int i = 0; i < comicArray.length(); i++) {
+					boolean addToComicList = false;
 					JSONObject comicObject = comicArray.getJSONObject(i);
-					comicList.add(new Comic(
-							comicObject.getInt(XKCDConstants.Json.ID), //Id
-							comicObject.getString(XKCDConstants.Json.TITLE), // Title
-							comicObject.getString(XKCDConstants.Json.URL), // URL
-							comicObject.getString(XKCDConstants.Json.CAPTION)) // Caption
-					);
-					Log.d(CLASSTAG, comicObject.getString(XKCDConstants.Json.TITLE));
+					
+					int id = comicObject.getInt(XKCDConstants.Json.ID);
+					String title = comicObject.getString(XKCDConstants.Json.TITLE);
+					String url = comicObject.getString(XKCDConstants.Json.URL);
+					String caption = comicObject.getString(XKCDConstants.Json.CAPTION);
+					
+					addToComicList = checkToAddComicToComicList(
+							id, // ID
+							title, // Title 
+							url, // URL 
+							caption // Caption
+							);
+					
+					if (addToComicList) {
+						comicList.add(new Comic(id, title, url, caption));
+						Log.d(CLASSTAG, "[ADDED] " + title);
+					} else {
+						Log.d(CLASSTAG, "[OMIT] " + title);
+					}
+					
 				} // End of for loop
 				
 				/* Return the Comic ArrayList */
@@ -81,10 +92,18 @@ public class XkcdSyncActivity extends BaseActivity {
 		}
 		
 		@Override
-		protected void onPostExecute(ArrayList<Comic> comicArrayList) {
-			super.onPostExecute(comicArrayList);
+		protected void onPostExecute(ArrayList<Comic> comicArrayListResult) {
+			super.onPostExecute(comicArrayListResult);
 		}
 		
+	}
+
+	private boolean checkToAddComicToComicList(int id, String title, String url, String caption) {
+		if ((title == "") || (url == "") || (caption == "")) {
+			return false; // Because some critical piece of information is missing
+		} else {
+			return true;
+		}
 	}
 	
 }
