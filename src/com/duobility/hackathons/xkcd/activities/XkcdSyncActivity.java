@@ -1,7 +1,5 @@
 package com.duobility.hackathons.xkcd.activities;
 
-import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +10,7 @@ import android.util.Log;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.duobility.hackathons.xkcd.data.Database;
 import com.duobility.hackathons.xkcd.data.XKCDConstants;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 import com.duobility.hackathons.xkcd.views.MainView.ComicAdapter;
@@ -52,16 +51,20 @@ public abstract class XkcdSyncActivity extends BaseActivity {
 	/* Background task for getting the 
 	 * XKCD comics and putting them in
 	 * an arrayList */
-	private class ProcessReceivedJSon extends AsyncTask<String, Integer, ArrayList<Comic>> {
+	private class ProcessReceivedJSon extends AsyncTask<String, Integer, Boolean> {
 
 		@Override
-		protected ArrayList<Comic> doInBackground(String... payload) {
-			ArrayList<Comic> comicList = new ArrayList<Comic>();
+		protected Boolean doInBackground(String... payload) {
 			JSONObject xkcdObject = null;
 			
 			try {
 				xkcdObject = new JSONObject(payload[0]);
 				JSONArray comicArray = xkcdObject.getJSONArray(XKCDConstants.Json.ARRAY_TAG);
+				
+				/* Open Database connection */
+				Database db = new Database(getApplicationContext());
+				db.open();
+				db.clearDBifHasEntries();
 				
 				/* Get all comics from JSon array */
 				for (int i = 0; i < comicArray.length(); i++) {
@@ -73,15 +76,11 @@ public abstract class XkcdSyncActivity extends BaseActivity {
 					String url = comicObject.getString(XKCDConstants.Json.URL);
 					String caption = comicObject.getString(XKCDConstants.Json.CAPTION);
 					
-					addToComicList = checkToAddComicToComicList(
-							id, // ID
-							title, // Title 
-							url, // URL 
-							caption // Caption
-							);
+					/* Change boolean to true if it is okay to add */
+					addToComicList = checkToAddComicToComicList(id, title, url, caption);
 					
 					if (addToComicList) {
-						comicList.add(new Comic(id, title, url, caption));
+						db.putEntry(id, title, url, caption);
 						Log.d(CLASSTAG, "[ADDED] " + title);
 					} else {
 						Log.d(CLASSTAG, "[OMIT] " + title);
@@ -89,20 +88,16 @@ public abstract class XkcdSyncActivity extends BaseActivity {
 					
 				} // End of for loop
 				
-				/* Return the Comic ArrayList */
-				return comicList;
+				db.close(); // Close the Database connection
+				
+				/* Return success true */
+				return true;
 				
 			} catch (JSONException e) {
 				/* Return a null so we know that it failed */
 				Log.e(CLASSTAG, e.toString());
-				return null;
+				return false;
 			}
-		}
-		
-		@Override
-		protected void onPostExecute(ArrayList<Comic> comicArrayListResult) {
-			super.onPostExecute(comicArrayListResult);
-			adapter.refreshList(comicArrayListResult);
 		}
 		
 	}

@@ -2,6 +2,7 @@ package com.duobility.hackathons.xkcd.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -19,6 +20,7 @@ public class Database {
 	private static final int DATABASE_VERSION = 1;
 	
 	private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + DATABASE_TABLE;
+	private static final String SQL_CLEAR_TABLE = "DELETE FROM " + DATABASE_TABLE;
 	private static final String SQL_CREATE_TABLE = "CREATE TABLE " + DATABASE_TABLE + " (" +
 														KEY_ID + " INTEGER NOT NULL, " + 
 														KEY_TITLE + " TEXT NOT NULL, " + 
@@ -66,6 +68,27 @@ public class Database {
 	}
  	
 	/* Custom DB interaction methods */
+	public long getNumberOfComics() {
+		long number = DatabaseUtils.queryNumEntries(ourDatabase, DATABASE_TABLE);
+		return number;
+	}
+	
+	public boolean hasEntriesCheck() {
+		long numberOfRows = getNumberOfComics();
+		if (numberOfRows > 0) {
+			return true; // Has entries
+		} else {
+			return false; // Is Empty
+		}
+	}
+	
+	public void clearDBifHasEntries() {
+		if (hasEntriesCheck()) {
+			ourDatabase.execSQL(SQL_CLEAR_TABLE);
+			ourDatabase.execSQL(SQL_CREATE_TABLE);
+		}
+	}
+	
 	public void putEntry(int id, String title, String url, String caption) {
 		ContentValues values = new ContentValues();
 		values.put(KEY_ID, id);
