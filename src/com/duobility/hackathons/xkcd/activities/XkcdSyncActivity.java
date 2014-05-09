@@ -10,9 +10,9 @@ import android.util.Log;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+
 import com.duobility.hackathons.xkcd.data.Database;
 import com.duobility.hackathons.xkcd.data.XKCDConstants;
-import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 import com.duobility.hackathons.xkcd.views.MainView.ComicAdapter;
 
 public abstract class XkcdSyncActivity extends BaseActivity {
