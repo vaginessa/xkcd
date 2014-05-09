@@ -27,13 +27,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainView extends XkcdSyncActivity {
+public class MainView extends BaseActivity {
 	
-	private static boolean wifiConnected = false;
-	private static boolean mobileConnected = false;
-	
-	private String CLASSTAG = MainView.class.getSimpleName();
+	public static String CLASSTAG = MainView.class.getSimpleName();
 	private ListView comicListView;
+	private ComicAdapter adapter ;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,6 @@ public class MainView extends XkcdSyncActivity {
 	protected void onStart() {
 		super.onStart();
 		initViews();
-		requestJsonFromServer();
 	}
 
 	private void initViews() {
@@ -108,8 +105,8 @@ public class MainView extends XkcdSyncActivity {
 			}
 			
 			aq.id(holder.comicImage).image(adapterArrayList.get(position).url); // Image applied
-			//holder.titleTextView.setText(adapterArrayList.get(position).title); // Title applied
-			//holder.captionTextView.setText(adapterArrayList.get(position).caption); // Caption applied
+			holder.titleTextView.setText(adapterArrayList.get(position).title); // Title applied
+			holder.captionTextView.setText(adapterArrayList.get(position).caption); // Caption applied
 			
 			return convertView;
 		}

@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +14,11 @@ import com.androidquery.callback.AjaxStatus;
 
 import com.duobility.hackathons.xkcd.data.Database;
 import com.duobility.hackathons.xkcd.data.XKCDConstants;
-import com.duobility.hackathons.xkcd.views.MainView.ComicAdapter;
+import com.duobility.hackathons.xkcd.views.MainView;
 
 public abstract class XkcdSyncActivity extends BaseActivity {
 	
-	private String CLASSTAG = XkcdSyncActivity.class.getSimpleName();
-	
-	protected ComicAdapter adapter;
+	public static String CLASSTAG = XkcdSyncActivity.class.getSimpleName();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +89,11 @@ public abstract class XkcdSyncActivity extends BaseActivity {
 				
 				db.close(); // Close the Database connection
 				
-				/* Return success true */
+				/* Transition to next activity */
+				gotoView(new Intent(XkcdSyncActivity.this, MainView.class));
+				activityTransitionAnimation_fromRight();
+				finish();
+				
 				return true;
 				
 			} catch (JSONException e) {

@@ -1,13 +1,20 @@
 package com.duobility.hackathons.xkcd.data;
 
+import java.util.ArrayList;
+
+import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class Database {
+	
+	public static String CLASSTAG = Database.class.getSimpleName();
 	
 	/* Constants For DB */
 	public static final String KEY_ID = "id";
@@ -19,7 +26,7 @@ public class Database {
 	private static final String DATABASE_TABLE = "comicTable";
 	private static final int DATABASE_VERSION = 1;
 	
-	private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + DATABASE_TABLE;
+	//private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + DATABASE_TABLE;
 	private static final String SQL_CLEAR_TABLE = "DELETE FROM " + DATABASE_TABLE;
 	private static final String SQL_CREATE_TABLE = "CREATE TABLE " + DATABASE_TABLE + " (" +
 														KEY_ID + " INTEGER NOT NULL, " + 
@@ -96,5 +103,29 @@ public class Database {
 		values.put(KEY_URL, url);
 		values.put(KEY_CAPTION, caption);
 		ourDatabase.insert(DATABASE_TABLE, null, values);
+	}
+	
+	public ArrayList<Comic> getEntries() {
+		String orderBy = KEY_ID + " ASC";
+		String limit = "30";
+		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
+		
+		ArrayList<Comic> comiclist = new ArrayList<Comic>();
+		int iId = dbc.getColumnIndex(KEY_ID);
+		int iTitle = dbc.getColumnIndex(KEY_TITLE);
+		int iUrl = dbc.getColumnIndex(KEY_URL);
+		int iCaption = dbc.getColumnIndex(KEY_CAPTION);
+		
+		for (dbc.moveToFirst(); !dbc.isAfterLast(); dbc.moveToNext()) {
+			comiclist.add(new Comic(
+					dbc.getInt(iId), 
+					dbc.getString(iTitle), 
+					dbc.getString(iUrl), 
+					dbc.getString(iCaption) 
+					));
+		}
+		
+		/* Return constructed list */
+		return comiclist;
 	}
 }

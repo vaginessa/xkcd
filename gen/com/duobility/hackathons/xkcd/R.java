@@ -15,6 +15,8 @@ public final class R {
         public static final int abc_slide_in_top=0x7f040003;
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
+        public static final int activity_enter_fromright=0x7f040006;
+        public static final int activity_nomotion=0x7f040007;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
@@ -1166,7 +1168,8 @@ containing a value of this type.
         public static final int comic_card=0x7f030017;
         public static final int main_view=0x7f030018;
         public static final int main_view_fragment=0x7f030019;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001a;
+        public static final int splash_view=0x7f03001a;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
     }
     public static final class menu {
         public static final int main_view=0x7f0c0000;
