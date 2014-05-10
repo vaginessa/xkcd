@@ -5,11 +5,11 @@ import com.androidquery.AQuery;
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.data.Fonts;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
-public abstract class BaseActivity extends ActionBarActivity {
+public abstract class BaseActivity extends Activity {
 	
 	public static String CLASSTAG = BaseActivity.class.getSimpleName();
 	
