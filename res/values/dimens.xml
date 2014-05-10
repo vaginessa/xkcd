@@ -16,7 +16,8 @@
     <dimen name="textSmall">14sp</dimen>
     <dimen name="textNormal">16sp</dimen>
     <dimen name="textMedium">18sp</dimen>
-    <dimen name="textLarge">20sp</dimen>
+    <dimen name="textLarge">24sp</dimen>
+    <dimen name="textVeryLarge">64sp</dimen>
     
     <!-- Card Dimens -->
     <dimen name="card_radius">2dp</dimen>

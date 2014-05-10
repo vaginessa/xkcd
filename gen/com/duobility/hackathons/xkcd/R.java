@@ -907,7 +907,7 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f080012;
         /**  Card Dimens 
          */
-        public static final int card_radius=0x7f08001d;
+        public static final int card_radius=0x7f08001e;
         public static final int padding=0x7f080016;
         public static final int paddingLarge=0x7f080017;
         public static final int paddingMed=0x7f080015;
@@ -922,6 +922,7 @@ containing a value of this type.
         /**  Text Dimens 
          */
         public static final int textSmall=0x7f080019;
+        public static final int textVeryLarge=0x7f08001d;
     }
     public static final class drawable {
         public static final int ab_background_textured_xkcddark=0x7f020000;
@@ -1060,7 +1061,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050041;
+        public static final int action_settings=0x7f050042;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1115,6 +1116,7 @@ containing a value of this type.
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
         public static final int withText=0x7f05000c;
+        public static final int xkcdTitle=0x7f050041;
     }
     public static final class integer {
         /**  The maximum number of action buttons that should be permitted within
@@ -1219,6 +1221,7 @@ containing a value of this type.
         public static final int app_name=0x7f0a000d;
         public static final int hello_world=0x7f0a000e;
         public static final int please_wait=0x7f0a0010;
+        public static final int xkcd_string=0x7f0a0011;
     }
     public static final class style {
         public static final int ActionBar_Solid_Xkcddark=0x7f0b0086;
