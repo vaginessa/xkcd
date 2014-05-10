@@ -1,5 +1,6 @@
 package com.duobility.hackathons.xkcd.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -7,11 +8,13 @@ import android.widget.TextView;
 
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
+import com.duobility.hackathons.xkcd.data.Database;
 
 public class SplashView extends XkcdSyncActivity {
 	
 	private TextView xkcdTitleTextView;
 	private Animation fadeinAnimation;
+	private Database db;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,19 @@ public class SplashView extends XkcdSyncActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		requestJsonFromServer();
+		/* Check if there are entries in the Databases */
+		db = new Database(getApplicationContext());
+		db.open();
+		if (db.getNumberOfComics() > 0) {
+			/* Don't waste time on this screen */
+			gotoView(new Intent(this, MainView.class));
+			activityTransitionAnimation_fromRight();
+			finish();
+		} else {
+			/* Get information for the first time */
+			requestJsonFromServer();
+		}
+		db.close();
 	}
 	
 	private void initView() {
