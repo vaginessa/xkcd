@@ -11,6 +11,7 @@ import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class Database {
 	
@@ -103,6 +104,7 @@ public class Database {
 		values.put(KEY_URL, url);
 		values.put(KEY_CAPTION, caption);
 		ourDatabase.insert(DATABASE_TABLE, null, values);
+		Log.i(CLASSTAG, "[DB] " + title);
 	}
 	
 	public ArrayList<Comic> getEntries() {
