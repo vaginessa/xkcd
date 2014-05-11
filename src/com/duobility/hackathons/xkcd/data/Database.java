@@ -152,9 +152,9 @@ public class Database {
 		for (dbc.moveToFirst(); !dbc.isAfterLast(); dbc.moveToNext()) {
 			comiclist.add(new Comic(
 					dbc.getInt(iId), 
-					dbc.getString(iTitle), 
+					replaceQuote( dbc.getString(iTitle) ), 
 					dbc.getString(iUrl), 
-					dbc.getString(iCaption) 
+					replaceQuote( dbc.getString(iCaption) ) 
 					));
 		}
 		
