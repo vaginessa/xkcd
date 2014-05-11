@@ -4,23 +4,24 @@
     android:id="@+id/imageCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/paddingMed"
+    android:layout_marginBottom="@dimen/paddingMed"
     android:background="@drawable/card"
     android:orientation="vertical" >
     
     <TextView
-        android:id="@+id/comicTitle"
+        android:id="@+id/comicCardTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/paddingMed"
         android:paddingBottom="@dimen/paddingMed"
         android:paddingRight="@dimen/padding"
         android:paddingLeft="@dimen/padding"
-        android:text="Xkcd Comic Title"
         android:textSize="@dimen/textMedium"
         android:textColor="@color/black3" />
         
     <ImageView
-        android:id="@+id/comicImageView"
+        android:id="@+id/comicCardImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/bg_pattern"
@@ -29,11 +30,10 @@
         android:contentDescription="@string/please_wait" />
     
     <TextView
-        android:id="@+id/comicCaption"
+        android:id="@+id/comicCardCaption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding"
-        android:text="This is the caption!"
         android:textColor="@android:color/black" />
         
 </LinearLayout>

@@ -2,24 +2,14 @@ package com.duobility.hackathons.xkcd.views;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.ImageOptions;
 
 import com.duobility.hackathons.xkcd.R;
-import com.duobility.hackathons.xkcd.activities.BaseActivity;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
-import com.duobility.hackathons.xkcd.data.XKCDConstants;
+import com.duobility.hackathons.xkcd.data.Database;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainView extends BaseActivity {
+public class MainView extends XkcdSyncActivity {
 	
 	public static String CLASSTAG = MainView.class.getSimpleName();
 	private ListView comicListView;
@@ -54,32 +44,43 @@ public class MainView extends BaseActivity {
 		comicListView.setAdapter(adapter);
 	}
 	
-	/* Holds all the views for the comicListView */
-	public static class ComicViewHolder {
-		public ImageView comicImage;
-		public TextView titleTextView;
-		public TextView captionTextView;
+	/* All list Methods below */
+	private ArrayList<Comic> getList() {
+		Database db = new Database(getApplicationContext());
+		db.open();
+		ArrayList<Comic> list = db.getEntries();
+		db.close();
+		return list;
 	}
 	
-	public class ComicAdapter extends BaseAdapter {
+	private static class ComicViewHolder {
+		public ImageView comicImage;
+		public TextView titleView;
+		public TextView captionView;
+	}
+	
+	private class ComicAdapter extends BaseAdapter {
 		
 		ImageOptions options = new ImageOptions();
-		ArrayList<Comic> adapterArrayList = new ArrayList<Comic>();
-				
-		public void refreshList(ArrayList<Comic> inputList) {
-			adapterArrayList = inputList;
+		ArrayList<Comic> list = initList();
+		
+		public ArrayList<Comic> initList() {
+			return getList();
+		}
+		
+		public void refreshList() {
 			notifyDataSetChanged();
 		}
 		
 		/* Override methods required by the BaseAdapter */		
 		@Override
 		public int getCount() {
-			return adapterArrayList.size();
+			return list.size();
 		}
 
 		@Override
 		public Comic getItem(int position) {
-			return adapterArrayList.get(position);
+			return list.get(position);
 		}
 
 		@Override
@@ -92,21 +93,17 @@ public class MainView extends BaseActivity {
 			ComicViewHolder holder = new ComicViewHolder();
 			convertView = null;
 			
-			options.fileCache = true;
-			options.memCache = true;
-			options.animation = AQuery.FADE_IN;
-			
 			if (convertView == null) {
 				convertView = getLayoutInflater().inflate(R.layout.comic_card, parent, false);
-				holder.comicImage = (ImageView) findViewById(R.id.comicImageView);
-				holder.titleTextView = (TextView) findViewById(R.id.comicTitle);
-				holder.captionTextView = (TextView) findViewById(R.id.comicCaption);
+				holder.titleView = (TextView) convertView.findViewById(R.id.comicCardTitle);
+				holder.comicImage = (ImageView) convertView.findViewById(R.id.comicCardImage);
+				holder.captionView = (TextView) convertView.findViewById(R.id.comicCardCaption);
 				convertView.setTag(holder);
 			}
 			
-			aq.id(holder.comicImage).image(adapterArrayList.get(position).url); // Image applied
-			holder.titleTextView.setText(adapterArrayList.get(position).title); // Title applied
-			holder.captionTextView.setText(adapterArrayList.get(position).caption); // Caption applied
+			holder.titleView.setText(list.get(position).title);
+			aq.id(holder.comicImage).image(list.get(position).url, options);
+			holder.captionView.setText(list.get(position).caption);
 			
 			return convertView;
 		}

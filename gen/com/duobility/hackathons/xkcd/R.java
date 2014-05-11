@@ -1067,10 +1067,10 @@ containing a value of this type.
         public static final int beginning=0x7f050011;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
-        public static final int comicCaption=0x7f05003f;
-        public static final int comicImageView=0x7f05003e;
+        public static final int comicCardCaption=0x7f05003f;
+        public static final int comicCardImage=0x7f05003e;
+        public static final int comicCardTitle=0x7f05003d;
         public static final int comicListView=0x7f050040;
-        public static final int comicTitle=0x7f05003d;
         public static final int default_activity_button=0x7f050028;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
