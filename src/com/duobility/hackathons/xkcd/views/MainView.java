@@ -18,7 +18,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainView extends XkcdSyncActivity {
 	
@@ -61,6 +60,7 @@ public class MainView extends XkcdSyncActivity {
 		public void onClick(View v) {
 			final int position = comicListView.getPositionForView(v);
 			if (position != ListView.INVALID_POSITION) {
+				
 			}
 		}
 	};
