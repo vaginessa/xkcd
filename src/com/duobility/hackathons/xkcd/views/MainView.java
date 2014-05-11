@@ -2,11 +2,12 @@ package com.duobility.hackathons.xkcd.views;
 
 import java.util.ArrayList;
 
-import com.androidquery.callback.ImageOptions;
+import com.androidquery.AQuery;
 
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
 import com.duobility.hackathons.xkcd.data.Database;
+import com.duobility.hackathons.xkcd.data.Fonts.Roboto;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 
 import android.os.Bundle;
@@ -61,7 +62,6 @@ public class MainView extends XkcdSyncActivity {
 	
 	private class ComicAdapter extends BaseAdapter {
 		
-		ImageOptions options = new ImageOptions();
 		ArrayList<Comic> list = initList();
 		
 		public ArrayList<Comic> initList() {
@@ -101,9 +101,26 @@ public class MainView extends XkcdSyncActivity {
 				convertView.setTag(holder);
 			}
 			
+			/* Applied to Title */
 			holder.titleView.setText(list.get(position).title);
-			aq.id(holder.comicImage).image(list.get(position).url, options);
+			mFonts.typeFaceConstructor(holder.titleView, Roboto.BOLD, getAssets());
+			
+			/* Applied to Image */
+			//aq.id(holder.comicImage).image(list.get(position).url, options);
+			aq.id(holder.comicImage).image(
+					list.get(position).url, // Image Url 
+					true, // memCache
+					true, // fileCache
+					0, // target width
+					0, // fall back id
+					null, // preset
+					AQuery.FADE_IN, // animation ID
+					AQuery.RATIO_PRESERVE // aspect ratio
+					);
+			
+			/* Applied to Caption */
 			holder.captionView.setText(list.get(position).caption);
+			mFonts.typeFaceConstructor(holder.captionView, Roboto.LIGHT, getAssets());
 			
 			return convertView;
 		}

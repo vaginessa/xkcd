@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/imageCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/paddingMed"
-    android:layout_marginBottom="@dimen/paddingMed"
     android:background="@drawable/card"
-    android:orientation="vertical" >
-    
+    android:orientation="vertical"
+    tools:ignore="ContentDescription" >
+
     <TextView
         android:id="@+id/comicCardTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/paddingMed"
+        android:gravity="center_horizontal"
         android:paddingBottom="@dimen/paddingMed"
-        android:paddingRight="@dimen/padding"
         android:paddingLeft="@dimen/padding"
-        android:textSize="@dimen/textMedium"
-        android:textColor="@color/black3" />
-        
+        android:paddingRight="@dimen/padding"
+        android:paddingTop="@dimen/paddingMed"
+        android:textColor="@color/black3"
+        android:textSize="@dimen/textLarge"
+        android:background="@color/grayVeryLight" />
+
     <ImageView
         android:id="@+id/comicCardImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/bg_pattern"
-        android:paddingRight="@dimen/paddingSmall"
+        android:paddingTop="@dimen/paddingSmall"
         android:paddingLeft="@dimen/paddingSmall"
-        android:contentDescription="@string/please_wait" />
-    
+        android:paddingRight="@dimen/paddingSmall"
+        android:scaleType="matrix"
+        android:src="@drawable/bg_pattern" />
+
     <TextView
         android:id="@+id/comicCardCaption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding"
-        android:textColor="@android:color/black" />
-        
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/textMedium" />
+
 </LinearLayout>
