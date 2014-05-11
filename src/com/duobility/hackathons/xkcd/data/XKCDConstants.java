@@ -2,6 +2,10 @@ package com.duobility.hackathons.xkcd.data;
 
 public abstract class XKCDConstants {
 	
+	public class BundleKeys {
+		public static final String SINGLE = "singleKey";
+	}
+	
 	public class Urls {
 		public static final String BACKEND = "http://xkcd-backend.herokuapp.com/";
 		public static final String RECEIVE_JSON = BACKEND + "hello";

@@ -1,15 +1,19 @@
 package com.duobility.hackathons.xkcd.views;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.BaseActivity;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.BundleKeys;
 
 public class SingleComicView extends BaseActivity {
 	
 	private String CLASSTAG = SingleComicView.class.getSimpleName();
 	private RelativeLayout layout;
+	
+	private String inputURL;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +23,8 @@ public class SingleComicView extends BaseActivity {
 		setContentView(layout);
 		
 		/* Get Bundle Information */
+		inputURL = getIntent().getStringExtra(BundleKeys.SINGLE);
+		Log.d(CLASSTAG, "received String: " + inputURL);
 	}
 	
 	@Override

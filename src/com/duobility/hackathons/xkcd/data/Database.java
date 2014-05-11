@@ -138,6 +138,31 @@ public class Database {
 		return comic;
 	}
 	
+	public ArrayList<Comic> getRandomEntries() {
+		String orderBy = "RAND()";
+		String limit = "30";
+		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
+		
+		ArrayList<Comic> comiclist = new ArrayList<Comic>();
+		int iId = dbc.getColumnIndex(KEY_ID);
+		int iTitle = dbc.getColumnIndex(KEY_TITLE);
+		int iUrl = dbc.getColumnIndex(KEY_URL);
+		int iCaption = dbc.getColumnIndex(KEY_CAPTION);
+		
+		for (dbc.moveToFirst(); !dbc.isAfterLast(); dbc.moveToNext()) {
+			comiclist.add(new Comic(
+					dbc.getInt(iId), 
+					dbc.getString(iTitle), 
+					dbc.getString(iUrl), 
+					dbc.getString(iCaption))
+			);
+		}
+		
+		/* Return Randomized List */
+		Log.d(CLASSTAG, "getRandomEntries");
+		return comiclist;
+	}
+	
 	public ArrayList<Comic> getEntries() {
 		String orderBy = KEY_ID + " ASC";
 		String limit = "30";

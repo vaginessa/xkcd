@@ -7,9 +7,11 @@ import com.androidquery.AQuery;
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
 import com.duobility.hackathons.xkcd.data.Database;
+import com.duobility.hackathons.xkcd.data.XKCDConstants;
 import com.duobility.hackathons.xkcd.data.Fonts.Roboto;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,7 +62,9 @@ public class MainView extends XkcdSyncActivity {
 		public void onClick(View v) {
 			final int position = comicListView.getPositionForView(v);
 			if (position != ListView.INVALID_POSITION) {
-				
+				Intent singleViewIntent = new Intent(getApplicationContext(), SingleComicView.class);
+				singleViewIntent.putExtra(XKCDConstants.BundleKeys.SINGLE, adapter.list.get(position).url);
+				gotoView(singleViewIntent);
 			}
 		}
 	};
@@ -77,10 +81,6 @@ public class MainView extends XkcdSyncActivity {
 		
 		public ArrayList<Comic> initList() {
 			return getList();
-		}
-		
-		public void refreshList() {
-			notifyDataSetChanged();
 		}
 		
 		/* Override methods required by the BaseAdapter */		
