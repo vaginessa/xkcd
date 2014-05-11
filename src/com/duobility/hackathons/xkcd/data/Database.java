@@ -75,6 +75,11 @@ public class Database {
 	public void close() {
 		ourHelper.close();
 	}
+	
+	/* String Controls */
+	private String replaceQuote(String s) {
+		return s.replace("&#39;", "'");
+	}
  	
 	/* Custom DB interaction methods */
 	public long getNumberOfComics() {
@@ -96,6 +101,7 @@ public class Database {
 			ourDatabase.execSQL(SQL_CLEAR_TABLE);
 			ourDatabase.execSQL(SQL_CREATE_TABLE);
 		}
+		Log.d(CLASSTAG, "DB cleared");
 	}
 	
 	public void putEntry(int id, String title, String url, String caption) {
@@ -105,7 +111,31 @@ public class Database {
 		values.put(KEY_URL, url);
 		values.put(KEY_CAPTION, caption);
 		ourDatabase.insert(DATABASE_TABLE, null, values);
-		Log.i(CLASSTAG, "[DB] " + title);
+		Log.i(CLASSTAG, "[PUT] " + title);
+	}
+	
+	public Comic getRandomEntry() {
+		String orderBy = "RAND()";
+		String limit = "1";
+		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
+		
+		Comic comic = null;
+		int iId = dbc.getColumnIndex(KEY_ID);
+		int iTitle = dbc.getColumnIndex(KEY_TITLE);
+		int iUrl = dbc.getColumnIndex(KEY_URL);
+		int iCaption = dbc.getColumnIndex(KEY_CAPTION);
+		
+		for (dbc.moveToFirst(); !dbc.isAfterLast(); dbc.moveToNext()) {
+			comic = new Comic(
+					dbc.getInt(iId),
+					replaceQuote( dbc.getString(iTitle) ),
+					dbc.getString(iUrl),
+					replaceQuote( dbc.getString(iCaption) )
+					);
+		}
+		
+		Log.d(CLASSTAG, "getRandomEntry");
+		return comic;
 	}
 	
 	public ArrayList<Comic> getEntries() {
@@ -129,6 +159,7 @@ public class Database {
 		}
 		
 		/* Return constructed list */
+		Log.d(CLASSTAG, "getEntries");
 		return comiclist;
 	}
 }
