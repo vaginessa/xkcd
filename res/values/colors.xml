@@ -11,5 +11,5 @@
     
     <!-- Card Colors -->
     <color name="card_border">#bbb</color>
-    <color name="card_shadow">#99000000</color>
+    <color name="card_shadow">#cc000000</color>
 </resources>

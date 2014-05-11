@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:background="@color/background_blue" >
+    android:background="#333" >
     
     <ListView
         android:id="@+id/comicListView"
