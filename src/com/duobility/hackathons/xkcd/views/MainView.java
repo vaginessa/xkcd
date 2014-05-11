@@ -12,11 +12,13 @@ import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainView extends XkcdSyncActivity {
 	
@@ -53,6 +55,15 @@ public class MainView extends XkcdSyncActivity {
 		db.close();
 		return list;
 	}
+	
+	private OnClickListener comicClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			final int position = comicListView.getPositionForView(v);
+			if (position != ListView.INVALID_POSITION) {
+			}
+		}
+	};
 	
 	private static class ComicViewHolder {
 		public ImageView comicImage;
@@ -98,6 +109,10 @@ public class MainView extends XkcdSyncActivity {
 				holder.titleView = (TextView) convertView.findViewById(R.id.comicCardTitle);
 				holder.comicImage = (ImageView) convertView.findViewById(R.id.comicCardImage);
 				holder.captionView = (TextView) convertView.findViewById(R.id.comicCardCaption);
+				
+				/* Comic OnClickListener */
+				holder.comicImage.setOnClickListener(comicClickListener);
+				
 				convertView.setTag(holder);
 			}
 			
@@ -107,7 +122,7 @@ public class MainView extends XkcdSyncActivity {
 			
 			/* Applied to Image */
 			aq.id(holder.comicImage).image(
-					list.get(position).url, // Image Url 
+					list.get(position).url, // Image URL 
 					true, // memCache
 					true, // fileCache
 					0, // target width

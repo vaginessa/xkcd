@@ -22,7 +22,15 @@
             android:name="com.duobility.hackathons.xkcd.views.MainView"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAINVIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.duobility.hackathons.xkcd.views.SingleComicView" >
+            <intent-filter>
+                <action android:name="android.intent.SINGLECOMICVIEW"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

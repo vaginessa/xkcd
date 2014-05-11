@@ -1049,6 +1049,7 @@ containing a value of this type.
         public static final int tab_unselected_focused_xkcddark=0x7f020078;
         public static final int tab_unselected_pressed_xkcddark=0x7f020079;
         public static final int tab_unselected_xkcddark=0x7f02007a;
+        public static final int viewphoto_background=0x7f02007b;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
