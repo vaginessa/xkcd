@@ -106,7 +106,6 @@ public class MainView extends XkcdSyncActivity {
 			mFonts.typeFaceConstructor(holder.titleView, Roboto.BOLD, getAssets());
 			
 			/* Applied to Image */
-			//aq.id(holder.comicImage).image(list.get(position).url, options);
 			aq.id(holder.comicImage).image(
 					list.get(position).url, // Image Url 
 					true, // memCache
