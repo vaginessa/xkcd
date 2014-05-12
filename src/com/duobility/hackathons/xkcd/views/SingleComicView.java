@@ -2,7 +2,9 @@ package com.duobility.hackathons.xkcd.views;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.BaseActivity;
@@ -12,6 +14,7 @@ public class SingleComicView extends BaseActivity {
 	
 	private String CLASSTAG = SingleComicView.class.getSimpleName();
 	private RelativeLayout layout;
+	private ImageView imageview;
 	
 	private String inputURL;
 	
@@ -35,7 +38,10 @@ public class SingleComicView extends BaseActivity {
 
 	private void buildUI() {
 		/* Start building UI elements */
-		
+		imageview = new ImageView(this);
+		// set some kind of click listener
+		aq.id(imageview).image(inputURL);
+		layout.addView(imageview, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	}
 	
 }
