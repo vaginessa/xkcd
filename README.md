@@ -1,10 +1,11 @@
 xkcd
 ====
 
-Beauty of Tumblr, awesomeness of XKCD
+Awesomeness of XKCD
 
 
 REQUIRED
  - AQuery
  - JSoup
  - GSON
+ - anthonyPhotoView
