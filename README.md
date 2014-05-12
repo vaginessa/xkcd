@@ -8,4 +8,3 @@ REQUIRED
  - AQuery
  - JSoup
  - GSON
- - anthonyPhotoView
