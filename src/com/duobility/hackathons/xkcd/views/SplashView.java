@@ -34,14 +34,18 @@ public class SplashView extends XkcdSyncActivity {
 		db.open();
 		if (db.getNumberOfComics() > 0) {
 			/* Don't waste time on this screen */
-			gotoView(new Intent(this, MainView.class));
-			activityTransitionAnimation_fromRight();
-			finish();
+			gotoMainView();
 		} else {
 			/* Get information for the first time */
 			requestJsonFromServer();
 		}
 		db.close();
+	}
+
+	private void gotoMainView() {
+		gotoView(new Intent(this, MainView.class));
+		activityTransitionAnimation_fromRight();
+		finish();
 	}
 	
 	private void initView() {
