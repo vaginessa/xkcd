@@ -4,6 +4,7 @@ public abstract class XKCDConstants {
 	
 	public class BundleKeys {
 		public static final String SINGLE = "singleKey";
+		public static final String LISTSTATE = "comicliststate";
 	}
 	
 	public class Urls {

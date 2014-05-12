@@ -7,12 +7,13 @@ import com.androidquery.AQuery;
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
 import com.duobility.hackathons.xkcd.data.Database;
-import com.duobility.hackathons.xkcd.data.XKCDConstants;
 import com.duobility.hackathons.xkcd.data.Fonts.Roboto;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.BundleKeys;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -24,19 +25,35 @@ import android.widget.TextView;
 public class MainView extends XkcdSyncActivity {
 	
 	public static String CLASSTAG = MainView.class.getSimpleName();
+	
 	private ListView comicListView;
+	
+	private Bundle extrasMainView;
+	private Parcelable listState;
 	private ComicAdapter adapter ;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_view);
+		
+		/* Get Extras if any exist */
+		extrasMainView = getIntent().getExtras();
 	}
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
 		initViews();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		listState = extrasMainView.getParcelable(BundleKeys.LISTSTATE);
+		if (listState != null) {
+			comicListView.onRestoreInstanceState(listState);
+		}
 	}
 
 	private void initViews() {
@@ -62,8 +79,19 @@ public class MainView extends XkcdSyncActivity {
 		public void onClick(View v) {
 			final int position = comicListView.getPositionForView(v);
 			if (position != ListView.INVALID_POSITION) {
+				// Save ListState
+				listState = comicListView.onSaveInstanceState();
+				
+				// Build Intent and Bundle
 				Intent singleViewIntent = new Intent(getApplicationContext(), SingleComicView.class);
-				singleViewIntent.putExtra(XKCDConstants.BundleKeys.SINGLE, adapter.list.get(position).url);
+				Bundle bundle = new Bundle();
+				
+				// Store information in bundle then intent
+				bundle.putString(BundleKeys.SINGLE, adapter.list.get(position).url);
+				bundle.putParcelable(BundleKeys.LISTSTATE, listState);
+				singleViewIntent.putExtras(bundle);
+				
+				// Call intent
 				gotoView(singleViewIntent);
 			}
 		}

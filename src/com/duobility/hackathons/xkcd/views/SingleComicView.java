@@ -7,12 +7,13 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 import com.duobility.hackathons.xkcd.R;
-import com.duobility.hackathons.xkcd.activities.BaseActivity;
+import com.duobility.hackathons.xkcd.activities.SideActivity;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.BundleKeys;
 
-public class SingleComicView extends BaseActivity {
+public class SingleComicView extends SideActivity {
 	
 	private String CLASSTAG = SingleComicView.class.getSimpleName();
+	private Bundle extras;
 	private RelativeLayout layout;
 	private ImageView imageview;
 	
@@ -26,7 +27,9 @@ public class SingleComicView extends BaseActivity {
 		setContentView(layout);
 		
 		/* Get Bundle Information */
-		inputURL = getIntent().getStringExtra(BundleKeys.SINGLE);
+		extras = getIntent().getExtras();
+		inputURL = extras.getString(BundleKeys.SINGLE);
+		listState = extras.getParcelable(BundleKeys.LISTSTATE);
 		Log.d(CLASSTAG, "received String: " + inputURL);
 	}
 	
