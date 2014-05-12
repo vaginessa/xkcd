@@ -81,7 +81,7 @@ public class Database {
 		return s.replace("&#39;", "'");
 	}
  	
-	/* Custom DB interaction methods */
+	/* Custom DB interaction methods */	
 	public long getNumberOfComics() {
 		long number = DatabaseUtils.queryNumEntries(ourDatabase, DATABASE_TABLE);
 		return number;
@@ -114,11 +114,52 @@ public class Database {
 		Log.i(CLASSTAG, "[PUT] " + title);
 	}
 	
+	public Comic getComicFromURL(String url) {
+		String selection = KEY_URL + "=" + "'" + url + "'";
+		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, selection, null, null, null, null);
+		
+		Comic comic = getComicFromDBCursor(dbc);
+		
+		return comic;
+	}
+	
 	public Comic getRandomEntry() {
 		String orderBy = "RAND()";
 		String limit = "1";
 		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
 		
+		Comic comic = getComicFromDBCursor(dbc);
+		
+		Log.d(CLASSTAG, "getRandomEntry");
+		return comic;
+	}
+	
+	public ArrayList<Comic> getRandomEntries() {
+		String orderBy = "RAND()";
+		String limit = "30";
+		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
+		
+		ArrayList<Comic> comiclist = getComicListFromDBCursor(dbc);
+		
+		/* Return Randomized List */
+		Log.d(CLASSTAG, "getRandomEntries");
+		return comiclist;
+	}
+	
+	public ArrayList<Comic> getEntries() {
+		String orderBy = KEY_ID + " ASC";
+		String limit = "30";
+		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
+		
+		ArrayList<Comic> comiclist = getComicListFromDBCursor(dbc);
+		
+		/* Return constructed list */
+		Log.d(CLASSTAG, "getEntries");
+		return comiclist;
+	}
+	
+	/* Database Helper Methods */
+	private Comic getComicFromDBCursor(Cursor dbc) {
 		Comic comic = null;
 		int iId = dbc.getColumnIndex(KEY_ID);
 		int iTitle = dbc.getColumnIndex(KEY_TITLE);
@@ -134,40 +175,10 @@ public class Database {
 					);
 		}
 		
-		Log.d(CLASSTAG, "getRandomEntry");
 		return comic;
 	}
 	
-	public ArrayList<Comic> getRandomEntries() {
-		String orderBy = "RAND()";
-		String limit = "30";
-		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
-		
-		ArrayList<Comic> comiclist = new ArrayList<Comic>();
-		int iId = dbc.getColumnIndex(KEY_ID);
-		int iTitle = dbc.getColumnIndex(KEY_TITLE);
-		int iUrl = dbc.getColumnIndex(KEY_URL);
-		int iCaption = dbc.getColumnIndex(KEY_CAPTION);
-		
-		for (dbc.moveToFirst(); !dbc.isAfterLast(); dbc.moveToNext()) {
-			comiclist.add(new Comic(
-					dbc.getInt(iId), 
-					dbc.getString(iTitle), 
-					dbc.getString(iUrl), 
-					dbc.getString(iCaption))
-			);
-		}
-		
-		/* Return Randomized List */
-		Log.d(CLASSTAG, "getRandomEntries");
-		return comiclist;
-	}
-	
-	public ArrayList<Comic> getEntries() {
-		String orderBy = KEY_ID + " ASC";
-		String limit = "30";
-		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
-		
+	private ArrayList<Comic> getComicListFromDBCursor(Cursor dbc) {
 		ArrayList<Comic> comiclist = new ArrayList<Comic>();
 		int iId = dbc.getColumnIndex(KEY_ID);
 		int iTitle = dbc.getColumnIndex(KEY_TITLE);
@@ -183,8 +194,6 @@ public class Database {
 					));
 		}
 		
-		/* Return constructed list */
-		Log.d(CLASSTAG, "getEntries");
 		return comiclist;
 	}
 }
