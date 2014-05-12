@@ -50,9 +50,11 @@ public class MainView extends XkcdSyncActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		listState = extrasMainView.getParcelable(BundleKeys.LISTSTATE);
-		if (listState != null) {
-			comicListView.onRestoreInstanceState(listState);
+		if(extrasMainView != null) {
+			listState = extrasMainView.getParcelable(BundleKeys.LISTSTATE);
+			if (listState != null) {
+				comicListView.onRestoreInstanceState(listState);
+			}
 		}
 	}
 
