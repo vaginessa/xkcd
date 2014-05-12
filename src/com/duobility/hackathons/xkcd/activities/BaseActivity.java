@@ -52,6 +52,11 @@ public abstract class BaseActivity extends Activity {
 		return sharedPreferences.getInt(LastSync.LASTSYNC, LastSync.DEFAULTVALUE);
 	}
 	
+	protected int now() {
+		long unixSeconds = System.currentTimeMillis() / 1000L;
+		return (int) unixSeconds;
+	}
+	
 	/* Intents */
 	protected void gotoView(Intent toViewIntent) {
 		startActivity(toViewIntent);

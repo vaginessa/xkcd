@@ -10,6 +10,7 @@ public abstract class XKCDConstants {
 	public class SharedPrefKeys {
 		public class LastSync {
 			public static final int DEFAULTVALUE = 3;
+			public static final int DELTA = 3600*12;
 			public static final String LASTSYNC = "com.duobility.hackatons.xkcd.LASTSYNC";
 		}
 	}

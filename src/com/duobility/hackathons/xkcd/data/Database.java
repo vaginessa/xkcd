@@ -27,7 +27,7 @@ public class Database {
 	private static final String DATABASE_TABLE = "comicTable";
 	private static final int DATABASE_VERSION = 1;
 	
-	private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + DATABASE_TABLE;
+	//private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + DATABASE_TABLE;
 	private static final String SQL_CLEAR_TABLE = "DELETE FROM " + DATABASE_TABLE;
 	private static final String SQL_CREATE_TABLE = "CREATE TABLE " + DATABASE_TABLE + " (" +
 														KEY_ID + " INTEGER NOT NULL, " + 
@@ -51,7 +51,6 @@ public class Database {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			/* This creates the Database */
-			db.execSQL(SQL_DROP_TABLE);
 			db.execSQL(SQL_CREATE_TABLE);
 		}
 
@@ -99,7 +98,6 @@ public class Database {
 	public void clearDBifHasEntries() {
 		if (hasEntriesCheck()) {
 			ourDatabase.execSQL(SQL_CLEAR_TABLE);
-			ourDatabase.execSQL(SQL_CREATE_TABLE);
 		}
 		Log.d(CLASSTAG, "DB cleared");
 	}

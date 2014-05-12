@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
 import com.duobility.hackathons.xkcd.data.Database;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.SharedPrefKeys.LastSync;
 
 public class SplashView extends XkcdSyncActivity {
 	
@@ -34,7 +35,12 @@ public class SplashView extends XkcdSyncActivity {
 		db.open();
 		if (db.getNumberOfComics() > 0) {
 			/* Don't waste time on this screen */
-			gotoMainView();
+			if ((readFromLastSyncPrefs() + LastSync.DELTA) < now()) {
+				writeToLastSyncPrefs(now());
+				requestJsonFromServer();
+			} else {
+				gotoMainView();
+			}
 		} else {
 			/* Get information for the first time */
 			requestJsonFromServer();
