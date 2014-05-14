@@ -8,5 +8,6 @@
     
     <string name="please_wait">Please Wait</string>
     <string name="noInternetAcces">Check your network connection and try again</string>
+    <string name="randomListBtn">Random</string>
 
 </resources>
