@@ -4,7 +4,9 @@
     <string name="app_name">xkcd</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="please_wait">Please Wait</string>
     <string name="xkcd_string">xkcd</string>
+    
+    <string name="please_wait">Please Wait</string>
+    <string name="noInternetAcces">Check your network connection and try again</string>
 
 </resources>

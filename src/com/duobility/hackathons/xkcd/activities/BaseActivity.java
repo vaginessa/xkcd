@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -33,6 +35,18 @@ public abstract class BaseActivity extends Activity {
 		/* Shared Preferences */
 		baseActivityContext = getApplicationContext();
 		sharedPreferences = baseActivityContext.getSharedPreferences(LastSync.LASTSYNC, Context.MODE_PRIVATE);
+	}
+	
+	protected void updateInternetConnectionFlags() {
+		ConnectivityManager connectManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeInfo = connectManager.getActiveNetworkInfo();
+		if ((activeInfo != null) && (activeInfo.isConnected())) {
+			wifiConnected = activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
+			mobileConnected = activeInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+		} else {
+			wifiConnected = false;
+			mobileConnected = false;
+		}
 	}
 	
 	protected boolean writeToLastSyncPrefs(int time) {

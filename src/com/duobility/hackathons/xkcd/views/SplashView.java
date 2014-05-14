@@ -2,9 +2,11 @@ package com.duobility.hackathons.xkcd.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
@@ -42,8 +44,20 @@ public class SplashView extends XkcdSyncActivity {
 				gotoMainView();
 			}
 		} else {
-			/* Get information for the first time */
-			requestJsonFromServer();
+			/* Get information for the first time
+			 * Check if you user is connected to the Internet */
+			updateInternetConnectionFlags();
+			if (mobileConnected || wifiConnected) {
+				requestJsonFromServer();
+			} else {
+				/* Tell the user they don't have Internet access */
+				Toast noInternetToast = new Toast(getApplicationContext());
+				noInternetToast.setGravity(Gravity.CENTER, 0, 0);
+				noInternetToast.setText(R.string.noInternetAcces);
+				noInternetToast.setDuration(Toast.LENGTH_LONG);
+				noInternetToast.show();
+			}
+			/* End of Init check */
 		}
 		db.close();
 	}
