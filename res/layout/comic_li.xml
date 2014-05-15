@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com./tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:padding="@dimen/paddingMed"
+    android:orientation="vertical"
+    tools:ignore="ContentDescription" >
     
+    <TextView
+        android:id="@+id/comicCardTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/paddingMed"
+        android:paddingLeft="@dimen/padding"
+        android:paddingRight="@dimen/padding"
+        android:paddingTop="@dimen/paddingMed"
+        android:textColor="@color/black3"
+        android:textSize="@dimen/textLarge" />
     
+    <ImageView
+        android:id="@+id/comicCardImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/paddingSmall"
+        android:paddingLeft="@dimen/paddingSmall"
+        android:paddingRight="@dimen/paddingSmall"
+        android:scaleType="matrix" />
+    
+    <TextView
+        android:id="@+id/comicCardCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/textMedium" />
 
 </LinearLayout>

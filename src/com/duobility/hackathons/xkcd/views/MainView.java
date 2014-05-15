@@ -135,7 +135,8 @@ public class MainView extends XkcdSyncActivity {
 			convertView = null;
 			
 			if (convertView == null) {
-				convertView = getLayoutInflater().inflate(R.layout.comic_card, parent, false);
+				// convertView = getLayoutInflater().inflate(R.layout.comic_card, parent, false); // COMIC CARD // 
+				convertView = getLayoutInflater().inflate(R.layout.comic_li, parent, false); // COMIC LIST //
 				holder.titleView = (TextView) convertView.findViewById(R.id.comicCardTitle);
 				holder.comicImage = (ImageView) convertView.findViewById(R.id.comicCardImage);
 				holder.captionView = (TextView) convertView.findViewById(R.id.comicCardCaption);
