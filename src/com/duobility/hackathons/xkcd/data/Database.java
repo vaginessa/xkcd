@@ -133,7 +133,7 @@ public class Database {
 	}
 	
 	public ArrayList<Comic> getRandomEntries() {
-		String orderBy = "RAND()";
+		String orderBy = "RANDOM()";
 		String limit = "30";
 		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
 		

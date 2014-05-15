@@ -71,7 +71,7 @@ public class MainView extends XkcdSyncActivity {
 	private ArrayList<Comic> getList() {
 		Database db = new Database(getApplicationContext());
 		db.open();
-		ArrayList<Comic> list = db.getEntries();
+		ArrayList<Comic> list = db.getEntries(); /* GET RECENT ENTRIES */
 		db.close();
 		return list;
 	}
