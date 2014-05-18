@@ -1,5 +1,7 @@
 package com.duobility.hackathons.xkcd.activities;
 
+import java.io.File;
+
 import com.androidquery.AQuery;
 
 import com.duobility.hackathons.xkcd.R;
@@ -12,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -72,6 +75,19 @@ public abstract class BaseActivity extends Activity {
 	}
 	
 	/* Intents */
+	protected boolean shareComicIntent(String comicURL, String comicTitle) {
+		File imageFile = aq.makeSharedFile(comicURL, comicTitle);
+		if ((imageFile != null) && (!comicTitle.equals(""))) {
+			Intent shareComicIntent = new Intent(Intent.ACTION_SEND);
+			shareComicIntent.setType("image/*");
+			shareComicIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(imageFile));
+			startActivity(Intent.createChooser(shareComicIntent, getResources().getString(R.string.shareIntent)));
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	protected void gotoView(Intent toViewIntent) {
 		startActivity(toViewIntent);
 	}

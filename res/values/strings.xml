@@ -10,5 +10,14 @@
     <string name="please_wait">Please Wait</string>
     <string name="noInternetAcces">Check your network connection and try again</string>
     <string name="randomListBtn">Random</string>
+    <string name="shareIntent">Share Comic With</string>
+    <string name="share">Share</string>
+    
+    <string-array name="navList">
+        <item>Recent</item>
+        <item>Random</item>
+    </string-array>
+    <string name="drawerOpen">Open navigation drawer</string>
+    <string name="drawerClose">Close navigation drawer</string>
 
 </resources>

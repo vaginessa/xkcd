@@ -12,6 +12,8 @@
     <!-- Card Colors -->
     <color name="card_border">#bbb</color>
     <color name="card_shadow">#cc000000</color>
+    <color name="shareBlueShadow">#2d7af2</color>
+    <color name="shareBlue">#4285f4</color>
     
     <!-- Holo colors -->
     <color name="holo_blue_light">#ff33b5e5</color>

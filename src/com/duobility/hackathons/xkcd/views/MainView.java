@@ -8,25 +8,35 @@ import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
 import com.duobility.hackathons.xkcd.data.Database;
 import com.duobility.hackathons.xkcd.data.Fonts.Roboto;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.ActionBarNavigationArray;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.BundleKeys;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
 
+import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 public class MainView extends XkcdSyncActivity {
 	
 	public static String CLASSTAG = MainView.class.getSimpleName();
+	private boolean randomListBoolean = false;
 	
 	private ListView comicListView;
+	private SpinnerAdapter navigationSpinnerAdapter;
+	private OnNavigationListener onNavigationCallBack;
 	
 	private Bundle extrasMainView;
 	private Parcelable listState;
@@ -36,6 +46,37 @@ public class MainView extends XkcdSyncActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_view);
+		
+		/* Turn on ActionBar navigation */
+		navigationSpinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.navList, android.R.layout.simple_dropdown_item_1line);
+		onNavigationCallBack = new OnNavigationListener() {
+			
+			String[] navigationItemArray = getResources().getStringArray(R.array.navList);
+			
+			@Override
+			public boolean onNavigationItemSelected(int position, long id) {
+				switch (position) {
+				case ActionBarNavigationArray.RECENT:
+					randomListBoolean = false;
+					adapter.getAndRefreshList();
+					break;
+				case ActionBarNavigationArray.RANDOM:
+					randomListBoolean = true;
+					adapter.getAndRefreshList();
+					break;
+
+				default:
+					break;
+				}
+				Log.d(CLASSTAG, "Nav selected: " + navigationItemArray[position]);
+				return true;
+			}
+		};
+		
+		/* Applying ActionBar navigation*/
+		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		getActionBar().setDisplayShowTitleEnabled(false);
+		getActionBar().setListNavigationCallbacks(navigationSpinnerAdapter, onNavigationCallBack);
 		
 		/* Get Extras if any exist */
 		extrasMainView = getIntent().getExtras();
@@ -68,10 +109,15 @@ public class MainView extends XkcdSyncActivity {
 	}
 	
 	/* All list Methods below */
-	private ArrayList<Comic> getList() {
+	private ArrayList<Comic> getList(boolean isListRandom) {
 		Database db = new Database(getApplicationContext());
 		db.open();
-		ArrayList<Comic> list = db.getEntries(); /* GET RECENT ENTRIES */
+		ArrayList<Comic> list = new ArrayList<Comic>();
+		if (isListRandom) {
+			list = db.getRandomEntries(); /* GET RANDOM ENTRIES */
+		} else {
+			list = db.getEntries(); /* GET RECENT ENTRIES */
+		}
 		db.close();
 		return list;
 	}
@@ -99,10 +145,24 @@ public class MainView extends XkcdSyncActivity {
 		}
 	};
 	
+	private OnClickListener shareComicClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			final int position = comicListView.getPositionForView(v);
+			if (position != ListView.INVALID_POSITION) {
+				shareComicIntent(
+						adapter.list.get(position).url, // Comic Image URL 
+						adapter.list.get(position).title // Comic Image Title
+						);
+			}
+		}
+	};
+	
 	private static class ComicViewHolder {
 		public ImageView comicImage;
 		public TextView titleView;
 		public TextView captionView;
+		public Button shareButton;
 	}
 	
 	private class ComicAdapter extends BaseAdapter {
@@ -110,7 +170,12 @@ public class MainView extends XkcdSyncActivity {
 		ArrayList<Comic> list = initList();
 		
 		public ArrayList<Comic> initList() {
-			return getList();
+			return getList(randomListBoolean);
+		}
+		
+		public void getAndRefreshList() {
+			list = initList();
+			notifyDataSetChanged();
 		}
 		
 		/* Override methods required by the BaseAdapter */		
@@ -135,14 +200,15 @@ public class MainView extends XkcdSyncActivity {
 			convertView = null;
 			
 			if (convertView == null) {
-				// convertView = getLayoutInflater().inflate(R.layout.comic_card, parent, false); // COMIC CARD // 
 				convertView = getLayoutInflater().inflate(R.layout.comic_li, parent, false); // COMIC LIST //
 				holder.titleView = (TextView) convertView.findViewById(R.id.comicCardTitle);
 				holder.comicImage = (ImageView) convertView.findViewById(R.id.comicCardImage);
 				holder.captionView = (TextView) convertView.findViewById(R.id.comicCardCaption);
+				holder.shareButton = (Button) convertView.findViewById(R.id.comicShareButton);
 				
 				/* Comic OnClickListener */
 				holder.comicImage.setOnClickListener(comicClickListener);
+				holder.shareButton.setOnClickListener(shareComicClickListener);
 				
 				convertView.setTag(holder);
 			}
@@ -166,6 +232,9 @@ public class MainView extends XkcdSyncActivity {
 			/* Applied to Caption */
 			holder.captionView.setText(list.get(position).caption);
 			mFonts.typeFaceConstructor(holder.captionView, Roboto.LIGHT, getAssets());
+			
+			/* Applied to Share Button */
+			mFonts.typeFaceConstructor(holder.shareButton, Roboto.BOLD, getAssets());
 			
 			return convertView;
 		}

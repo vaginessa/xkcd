@@ -16,6 +16,11 @@ public abstract class XKCDConstants {
 		}
 	}
 	
+	public class ActionBarNavigationArray {
+		public static final int RECENT = 0;
+		public static final int RANDOM = 1;
+	}
+	
 	public class Urls {
 		public static final String BACKEND = "http://xkcd-backend.herokuapp.com/";
 		public static final String RECEIVE_JSON = BACKEND + "hello";
