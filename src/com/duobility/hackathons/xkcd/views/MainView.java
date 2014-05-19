@@ -122,6 +122,7 @@ public class MainView extends XkcdSyncActivity {
 		return list;
 	}
 	
+	/* Old Activity OnComicClickListener
 	private OnClickListener comicClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -141,6 +142,18 @@ public class MainView extends XkcdSyncActivity {
 				
 				// Call intent
 				gotoView(singleViewIntent);
+			}
+		}
+	};
+	End of Old Activity onComicClickListener */
+	
+	private OnClickListener comicClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			final int position = comicListView.getPositionForView(v);
+			if (position != ListView.INVALID_POSITION) {
+				
 			}
 		}
 	};
