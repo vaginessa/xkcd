@@ -25,7 +25,7 @@ public class Database {
 	
 	private static final String DATABASE_NAME = "comicDB";
 	private static final String DATABASE_TABLE = "comicTable";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	//private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + DATABASE_TABLE;
 	private static final String SQL_CLEAR_TABLE = "DELETE FROM " + DATABASE_TABLE;
