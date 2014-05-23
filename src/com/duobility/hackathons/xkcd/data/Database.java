@@ -145,7 +145,7 @@ public class Database {
 	}
 	
 	public ArrayList<Comic> getEntries() {
-		String orderBy = KEY_ID + " ASC";
+		String orderBy = KEY_ID + " DESC";
 		String limit = "30";
 		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
 		
