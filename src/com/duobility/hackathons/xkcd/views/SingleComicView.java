@@ -9,6 +9,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.SideActivity;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.BundleKeys;
+import com.duobility.hackathons.xkcd.data.photoview.PhotoViewAttacher;
 
 public class SingleComicView extends SideActivity {
 	
@@ -16,6 +17,7 @@ public class SingleComicView extends SideActivity {
 	private Bundle extras;
 	private RelativeLayout layout;
 	private ImageView imageview;
+	private PhotoViewAttacher mAttacher;
 	
 	private String inputURL;
 	
@@ -45,6 +47,8 @@ public class SingleComicView extends SideActivity {
 		// set some kind of click listener
 		aq.id(imageview).image(inputURL);
 		layout.addView(imageview, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		mAttacher = new PhotoViewAttacher(imageview);
+		mAttacher.update();
 	}
 	
 }

@@ -91,6 +91,10 @@ public class MainView extends XkcdSyncActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		//listStateManager();
+	}
+
+	private void listStateManager() {
 		if(extrasMainView != null) {
 			listState = extrasMainView.getParcelable(BundleKeys.LISTSTATE);
 			if (listState != null) {
@@ -147,6 +151,7 @@ public class MainView extends XkcdSyncActivity {
 	};
 	End of Old Activity onComicClickListener */
 	
+	/* New Comic Viewer */
 	private OnClickListener comicClickListener = new OnClickListener() {
 		
 		@Override
