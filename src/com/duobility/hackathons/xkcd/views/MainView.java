@@ -129,7 +129,6 @@ public class MainView extends XkcdSyncActivity {
 		return list;
 	}
 	
-	/* Old Activity OnComicClickListener */
 	private OnClickListener comicClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -153,7 +152,6 @@ public class MainView extends XkcdSyncActivity {
 			}
 		}
 	};
-	/* End of Old Activity onComicClickListener */
 	
 	private OnClickListener shareComicClickListener = new OnClickListener() {
 		@Override
