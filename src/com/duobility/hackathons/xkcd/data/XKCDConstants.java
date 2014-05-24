@@ -10,7 +10,7 @@ public abstract class XKCDConstants {
 	
 	public class SharedPrefKeys {
 		public class LastSync {
-			private static final int DELTA_HOURS = 12;
+			private static final int DELTA_HOURS = 8;
 			public static final int DEFAULTVALUE = 3;
 			public static final int DELTA = 3600 * DELTA_HOURS;
 			public static final String LASTSYNC = "com.duobility.hackatons.xkcd.LASTSYNC";
