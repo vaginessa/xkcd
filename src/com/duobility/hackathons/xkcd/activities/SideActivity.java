@@ -43,6 +43,7 @@ public abstract class SideActivity extends BaseActivity {
 		Intent goBackIntent = new Intent(getApplicationContext(), MainView.class);
 		Bundle extras = new Bundle();
 		extras.putParcelable(BundleKeys.LISTSTATE, listState);
+		extras.putBoolean(BundleKeys.FROM_SIDE_ACTIVITY, true);
 		goBackIntent.putExtras(extras);
 		gotoView(goBackIntent, TransitionAnimation.FROM_LEFT);
 	}

@@ -5,6 +5,7 @@ public abstract class XKCDConstants {
 	public class BundleKeys {
 		public static final String SINGLE = "singleKey";
 		public static final String LISTSTATE = "comicliststate";
+		public static final String FROM_SIDE_ACTIVITY = "fromsideactivity";
 	}
 	
 	public class SharedPrefKeys {

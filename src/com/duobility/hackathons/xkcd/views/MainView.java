@@ -33,6 +33,7 @@ public class MainView extends XkcdSyncActivity {
 	
 	public static String CLASSTAG = MainView.class.getSimpleName();
 	private boolean randomListBoolean = false;
+	private boolean fromSideView = false;
 	
 	private ListView comicListView;
 	private SpinnerAdapter navigationSpinnerAdapter;
@@ -91,13 +92,14 @@ public class MainView extends XkcdSyncActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		//listStateManager();
+		listStateManager();
 	}
 
 	private void listStateManager() {
 		if(extrasMainView != null) {
 			listState = extrasMainView.getParcelable(BundleKeys.LISTSTATE);
-			if (listState != null) {
+			fromSideView = extrasMainView.getBoolean(BundleKeys.FROM_SIDE_ACTIVITY);
+			if ((listState != null) && fromSideView) {
 				comicListView.onRestoreInstanceState(listState);
 			}
 		}
