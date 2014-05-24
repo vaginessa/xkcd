@@ -7,6 +7,7 @@ import com.androidquery.AQuery;
 import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.data.Fonts;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.SharedPrefKeys.LastSync;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.TransitionAnimation;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +16,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -89,11 +89,32 @@ public abstract class BaseActivity extends Activity {
 		}
 	}
 	
+	protected void gotoView(Intent toViewIntent, int transitionAnimation) {
+		startActivity(toViewIntent);
+		
+		switch (transitionAnimation) {
+		case TransitionAnimation.FROM_LEFT:
+			activityTransitionAnimation_fromLeft();
+			break;
+			
+		case TransitionAnimation.FROM_RIGHT:
+			activityTransitionAnimation_fromRight();
+			break;
+
+		default:
+			break;
+		}
+	}
+	
 	protected void gotoView(Intent toViewIntent) {
 		startActivity(toViewIntent);
 	}
 	
 	protected void activityTransitionAnimation_fromRight() {
 		overridePendingTransition(R.anim.activity_enter_fromright, R.anim.activity_nomotion);
+	}
+	
+	protected void activityTransitionAnimation_fromLeft() {
+		overridePendingTransition(R.anim.activity_enter_fromleft, R.anim.activity_nomotion);
 	}
 }

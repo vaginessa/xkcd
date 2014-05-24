@@ -16,6 +16,13 @@ public abstract class XKCDConstants {
 		}
 	}
 	
+	public class TransitionAnimation {
+		public static final int FROM_TOP = 1;
+		public static final int FROM_RIGHT = 2;
+		public static final int FROM_BOTTOM = 3;
+		public static final int FROM_LEFT = 4;
+	}
+	
 	public class ActionBarNavigationArray {
 		public static final int RECENT = 0;
 		public static final int RANDOM = 1;

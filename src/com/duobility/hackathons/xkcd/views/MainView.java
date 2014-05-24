@@ -126,7 +126,7 @@ public class MainView extends XkcdSyncActivity {
 		return list;
 	}
 	
-	/* Old Activity OnComicClickListener
+	/* Old Activity OnComicClickListener */
 	private OnClickListener comicClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -149,19 +149,7 @@ public class MainView extends XkcdSyncActivity {
 			}
 		}
 	};
-	End of Old Activity onComicClickListener */
-	
-	/* New Comic Viewer */
-	private OnClickListener comicClickListener = new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			final int position = comicListView.getPositionForView(v);
-			if (position != ListView.INVALID_POSITION) {
-				
-			}
-		}
-	};
+	/* End of Old Activity onComicClickListener */
 	
 	private OnClickListener shareComicClickListener = new OnClickListener() {
 		@Override
