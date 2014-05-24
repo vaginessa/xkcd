@@ -11,6 +11,7 @@ import com.duobility.hackathons.xkcd.data.Fonts.Roboto;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.ActionBarNavigationArray;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.BundleKeys;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.TransitionAnimation;
 
 import android.app.ActionBar.OnNavigationListener;
 import android.content.Intent;
@@ -147,7 +148,7 @@ public class MainView extends XkcdSyncActivity {
 				singleViewIntent.putExtras(bundle);
 				
 				// Call intent
-				gotoView(singleViewIntent);
+				gotoView(singleViewIntent, TransitionAnimation.FROM_RIGHT);
 				finish();
 			}
 		}
