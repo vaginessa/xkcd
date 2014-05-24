@@ -25,13 +25,12 @@ public class SplashView extends XkcdSyncActivity {
 		setContentView(R.layout.splash_view);
 		
 		fadeinAnimation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
-		
-		initView();
 	}
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
+		initView();
 		/* Check if there are entries in the Databases */
 		db = new Database(getApplicationContext());
 		db.open();
