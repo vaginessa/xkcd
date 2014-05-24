@@ -94,6 +94,12 @@ public class MainView extends XkcdSyncActivity {
 		super.onResume();
 		listStateManager();
 	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		finish();
+	}
 
 	private void listStateManager() {
 		if(extrasMainView != null) {
