@@ -156,6 +156,33 @@ public class Database {
 		return comiclist;
 	}
 	
+	public Comic getNewestComic() {
+		String orderBy = KEY_ID + " DESC";
+		String limit = "1";
+		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
+		
+		Comic comic = getComicFromDBCursor(dbc);
+		
+		Log.d(CLASSTAG, "newest comic is: " + comic.title);
+		return comic;
+	}
+	
+	public boolean doesComicExists(String url) {
+		String orderBy = KEY_ID + " DESC";
+		String selection = KEY_URL + "=" + "'" + url + "'";
+		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, selection, null, null, null, orderBy);
+		
+		ArrayList<Comic> comiclist = getComicListFromDBCursor(dbc);
+		
+		if (comiclist.size() > 0) {
+			// Match! Comic exists
+			return true;
+		} else {
+			// No Match! Comic does not exists
+			return false;
+		}
+	}
+	
 	/* Database Helper Methods */
 	private Comic getComicFromDBCursor(Cursor dbc) {
 		Comic comic = null;
