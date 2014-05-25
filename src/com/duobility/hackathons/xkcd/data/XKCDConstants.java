@@ -17,6 +17,10 @@ public abstract class XKCDConstants {
 		}
 	}
 	
+	public class SyncConstants {
+		public static final int MAX_NUMBER_OF_OMITTED_COMICS = 4;
+	}
+	
 	public class TransitionAnimation {
 		public static final int FROM_TOP = 1;
 		public static final int FROM_RIGHT = 2;

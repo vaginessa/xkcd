@@ -15,6 +15,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.duobility.hackathons.xkcd.data.Database;
 import com.duobility.hackathons.xkcd.data.XKCDConstants;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.SyncConstants;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.TransitionAnimation;
 import com.duobility.hackathons.xkcd.views.MainView;
 
@@ -68,8 +69,9 @@ public abstract class XkcdSyncActivity extends BaseActivity {
 				Comic newestComicOnDB = db.getNewestComic();
 				
 				/* Get all comics from JSon array */
-				if (newestComicOnDB.title == comicArray.getJSONObject(0).getString(XKCDConstants.Json.TITLE)) {
+				if (newestComicOnDB.url.trim().equals(comicArray.getJSONObject(0).getString(XKCDConstants.Json.URL).trim())) {
 					// DB is up to date therefore do nothing
+					Log.d(CLASSTAG, newestComicOnDB.title + " = " + comicArray.getJSONObject(0).getString(XKCDConstants.Json.TITLE));
 				} else {
 					Log.d(CLASSTAG, newestComicOnDB.title + " : " + comicArray.getJSONObject(0).getString(XKCDConstants.Json.TITLE));
 					processComicJsonArray(comicArray, db);
@@ -91,9 +93,17 @@ public abstract class XkcdSyncActivity extends BaseActivity {
 		}
 
 		private void processComicJsonArray(JSONArray comicArray, Database db) throws JSONException {
+			
+			int numOfOmittedComics = 0;
+			
 			for (int i = 0; i < comicArray.length(); i++) {
 				boolean addToComicList = false;
 				JSONObject comicObject = comicArray.getJSONObject(i);
+				
+				/* Terminate for loop early if too many existing entries are detected */
+				if (numOfOmittedComics > SyncConstants.MAX_NUMBER_OF_OMITTED_COMICS) {
+					break;
+				}
 				
 				int id = comicObject.getInt(XKCDConstants.Json.ID);
 				String title = comicObject.getString(XKCDConstants.Json.TITLE);
@@ -107,6 +117,7 @@ public abstract class XkcdSyncActivity extends BaseActivity {
 					db.putEntry(id, title, url, caption);
 					Log.d(CLASSTAG, "[ADDED] " + title);
 				} else {
+					numOfOmittedComics = numOfOmittedComics + 1;
 					Log.d(CLASSTAG, "[OMIT] " + title);
 				}
 				
