@@ -161,9 +161,16 @@ public class Database {
 		String limit = "1";
 		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
 		
-		Comic comic = getComicFromDBCursor(dbc);
+		Comic comic;
 		
-		Log.d(CLASSTAG, "newest comic is: " + comic.title);
+		if (getNumberOfComics() > 0) {
+			comic = getComicFromDBCursor(dbc);
+			Log.d(CLASSTAG, "newest comic is: " + comic.title);
+		} else {
+			Log.d(CLASSTAG, "There are no comics in the db");
+			comic = new Comic(0, "", "", "");
+		}
+		
 		return comic;
 	}
 	

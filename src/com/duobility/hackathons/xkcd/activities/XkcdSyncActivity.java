@@ -71,6 +71,7 @@ public abstract class XkcdSyncActivity extends BaseActivity {
 				if (newestComicOnDB.title == comicArray.getJSONObject(0).getString(XKCDConstants.Json.TITLE)) {
 					// DB is up to date therefore do nothing
 				} else {
+					Log.d(CLASSTAG, newestComicOnDB.title + " : " + comicArray.getJSONObject(0).getString(XKCDConstants.Json.TITLE));
 					processComicJsonArray(comicArray, db);
 				}
 				
