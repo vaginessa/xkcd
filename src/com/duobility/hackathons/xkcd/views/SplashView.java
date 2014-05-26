@@ -27,9 +27,10 @@ public class SplashView extends XkcdSyncActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_view);
 		
+		
 		fadeinAnimation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
 		
-		firstRequestProgressDialog = new ProgressDialog(SplashView.this, ProgressDialog.THEME_HOLO_LIGHT);
+		firstRequestProgressDialog = new ProgressDialog(SplashView.this, ProgressDialog.THEME_HOLO_DARK);
 	}
 
 	@Override
@@ -69,6 +70,7 @@ public class SplashView extends XkcdSyncActivity {
 	}
 	
 	private void showProgressDialog() {
+		firstRequestProgressDialog.getWindow().setGravity(Gravity.TOP);
 		firstRequestProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		firstRequestProgressDialog.setTitle(getString(R.string.firstTimeIsee));
 		firstRequestProgressDialog.setMessage(getString(R.string.gettingFromDB));
