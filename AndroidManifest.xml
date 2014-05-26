@@ -20,7 +20,8 @@
         
         <activity
             android:name="com.duobility.hackathons.xkcd.views.MainView"
-            android:label="@string/recentActionBar" >
+            android:label="@string/recentActionBar"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAINVIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
