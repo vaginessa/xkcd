@@ -7,6 +7,10 @@
     <string name="action_settings">Settings</string>
     <string name="xkcd_string">xkcd</string>
     
+    
+    <string name="firstTimeIsee">First time I see</string>
+    <string name="gettingFromDB">This might take a while</string>
+    
     <string name="please_wait">Please Wait</string>
     <string name="noInternetAcces">Check your network connection and try again</string>
     <string name="randomListBtn">Random</string>

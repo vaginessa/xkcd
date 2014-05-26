@@ -1,5 +1,6 @@
 package com.duobility.hackathons.xkcd.views;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,10 +13,12 @@ import com.duobility.hackathons.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
 import com.duobility.hackathons.xkcd.data.Database;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.SharedPrefKeys.LastSync;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.TransitionAnimation;
 
 public class SplashView extends XkcdSyncActivity {
 	
 	private TextView xkcdTitleTextView;
+	private ProgressDialog firstRequestProgressDialog;
 	private Animation fadeinAnimation;
 	private Database db;
 	
@@ -25,8 +28,10 @@ public class SplashView extends XkcdSyncActivity {
 		setContentView(R.layout.splash_view);
 		
 		fadeinAnimation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
+		
+		firstRequestProgressDialog = new ProgressDialog(SplashView.this, ProgressDialog.THEME_HOLO_LIGHT);
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -40,13 +45,15 @@ public class SplashView extends XkcdSyncActivity {
 				writeToLastSyncPrefs(now());
 				requestJsonFromServer();
 			} else {
-				gotoMainView();
+				gotoView(new Intent(this, MainView.class), TransitionAnimation.FROM_RIGHT);
+				finish();
 			}
 		} else {
 			/* Get information for the first time
 			 * Check if you user is connected to the Internet */
 			updateInternetConnectionFlags();
 			if (mobileConnected || wifiConnected) {
+				showProgressDialog();
 				requestJsonFromServer();
 			} else {
 				/* Tell the user they don't have Internet access */
@@ -56,15 +63,16 @@ public class SplashView extends XkcdSyncActivity {
 				noInternetToast.setDuration(Toast.LENGTH_LONG);
 				noInternetToast.show();
 			}
-			/* End of Init check */
+			/* End of Initial check */
 		}
 		db.close();
 	}
-
-	private void gotoMainView() {
-		gotoView(new Intent(this, MainView.class));
-		activityTransitionAnimation_fromRight();
-		finish();
+	
+	private void showProgressDialog() {
+		firstRequestProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		firstRequestProgressDialog.setTitle(getString(R.string.firstTimeIsee));
+		firstRequestProgressDialog.setMessage(getString(R.string.gettingFromDB));
+		firstRequestProgressDialog.show();
 	}
 	
 	private void initView() {
