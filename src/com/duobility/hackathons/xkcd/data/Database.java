@@ -3,6 +3,7 @@ package com.duobility.hackathons.xkcd.data;
 import java.util.ArrayList;
 
 import com.duobility.hackathons.xkcd.data.XKCDConstants.Comic;
+import com.duobility.hackathons.xkcd.data.XKCDConstants.DatabaseConstants;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -123,7 +124,7 @@ public class Database {
 	
 	public Comic getRandomEntry() {
 		String orderBy = "RAND()";
-		String limit = "1";
+		String limit = DatabaseConstants.Limit.SINGLE;
 		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
 		
 		Comic comic = getComicFromDBCursor(dbc);
@@ -134,7 +135,7 @@ public class Database {
 	
 	public ArrayList<Comic> getRandomEntries() {
 		String orderBy = "RANDOM()";
-		String limit = "30";
+		String limit = DatabaseConstants.Limit.LIST;
 		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
 		
 		ArrayList<Comic> comiclist = getComicListFromDBCursor(dbc);
@@ -146,7 +147,7 @@ public class Database {
 	
 	public ArrayList<Comic> getEntries() {
 		String orderBy = KEY_ID + " DESC";
-		String limit = "30";
+		String limit = DatabaseConstants.Limit.LIST;
 		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
 		
 		ArrayList<Comic> comiclist = getComicListFromDBCursor(dbc);
@@ -158,7 +159,7 @@ public class Database {
 	
 	public Comic getNewestComic() {
 		String orderBy = KEY_ID + " DESC";
-		String limit = "1";
+		String limit = DatabaseConstants.Limit.SINGLE;
 		Cursor dbc = ourDatabase.query(DATABASE_TABLE, columns, null, null, null, null, orderBy, limit);
 		
 		Comic comic;

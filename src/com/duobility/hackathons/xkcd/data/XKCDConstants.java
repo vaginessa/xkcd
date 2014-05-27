@@ -17,6 +17,13 @@ public abstract class XKCDConstants {
 		}
 	}
 	
+	public class DatabaseConstants {
+		public class Limit {
+			public static final String SINGLE = "1";
+			public static final String LIST = "50";
+		}
+	}
+	
 	public class SyncConstants {
 		public static final int MAX_NUMBER_OF_OMITTED_COMICS = 4;
 	}
