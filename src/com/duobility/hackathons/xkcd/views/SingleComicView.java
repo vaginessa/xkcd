@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.duobility.hackathons.xkcd.R;
+import com.duobility.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.SideActivity;
 import com.duobility.hackathons.xkcd.data.XKCDConstants.BundleKeys;
 import com.duobility.hackathons.xkcd.data.photoview.PhotoViewAttacher;

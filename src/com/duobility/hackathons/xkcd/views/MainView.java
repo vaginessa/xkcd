@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.androidquery.AQuery;
 
-import com.duobility.hackathons.xkcd.R;
+import com.duobility.xkcd.R;
 import com.duobility.hackathons.xkcd.activities.XkcdSyncActivity;
 import com.duobility.hackathons.xkcd.data.Database;
 import com.duobility.hackathons.xkcd.data.Fonts.Roboto;
